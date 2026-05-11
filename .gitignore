@@ -6,6 +6,7 @@
 .dirstamp
 .libs*
 build/
+build-linux/
 depcomp
 install/
 subprojects/*/

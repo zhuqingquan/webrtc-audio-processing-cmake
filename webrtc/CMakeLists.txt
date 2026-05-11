@@ -24,6 +24,7 @@ set(WBRTC_APM_SRC
         ${RTC_BASE_SRC}
         ${THIRD_PARTY_SRC}
 )
+message(STATUS "WEBRTC_APM_SRC: ${WBRTC_APM_SRC}")
 
 add_library(webrtc_apm_wrapper STATIC
         ${WBRTC_APM_SRC}

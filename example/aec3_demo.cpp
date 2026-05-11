@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <vector>
 #include <string>
 #include "wrapper/webrtc_apm_wrapper.h"
 
@@ -79,6 +80,9 @@ int main(int argc, char* argv[])
 
   const char* far_wav_file = argv[1];
   const char* near_wav_file = argv[2];
+  const char* output_path = "aec3_demo_output.wav";
+  if(argc >= 4)
+    output_path = argv[3];  
 
   // load audio data
   auto far_wav_data = OpenWavAndReadPcm(far_wav_file);
@@ -110,7 +114,6 @@ int main(int argc, char* argv[])
   format.sampleRate = far_wav_data->sampleRate;
   format.bitsPerSample = 32; // float
   drwav wav;
-  const char* output_path = "aec3_demo_output.wav";
   auto ok = drwav_init_file_write(&wav, output_path, &format, NULL);
   if (!ok) {
     printf("open output wave file failed\n");
@@ -133,6 +136,15 @@ int main(int argc, char* argv[])
   const int samples_per_frame = far_wav_data->sampleRate / 100;
   std::vector<float> far_frame(samples_per_frame);
   std::vector<float> near_frame(samples_per_frame);
+  int shift_far_steps = 50;
+  for(int i=0; i<shift_far_steps; i++)
+  {
+    if (!far_wav_data->generateNextFrame(far_frame.data(), samples_per_frame)) {
+      printf("error in read next frame. far wav file\n");
+      break;
+    }
+    printf("%d shift %d samples\n", i, samples_per_frame);
+  }
   for (;;) {
     if (!far_wav_data->generateNextFrame(far_frame.data(), samples_per_frame)) {
       break;

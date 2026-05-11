@@ -1,6 +1,7 @@
 file(GLOB_RECURSE AUDIO_PROCESSING_SRC "${CMAKE_CURRENT_SOURCE_DIR}/*.c" "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/*.cc")
 
 if(NOT have_avx2)
+    message("--------------not have avx2-------------------------")
     list(REMOVE_ITEM AUDIO_PROCESSING_SRC "${CMAKE_CURRENT_SOURCE_DIR}/audio_processing/aec3/fft_data_avx2.cc")
     list(REMOVE_ITEM AUDIO_PROCESSING_SRC "${CMAKE_CURRENT_SOURCE_DIR}/audio_processing/aec3/matched_filter_avx2.cc")
     list(REMOVE_ITEM AUDIO_PROCESSING_SRC "${CMAKE_CURRENT_SOURCE_DIR}/audio_processing/aec3/vector_math_avx2.cc")

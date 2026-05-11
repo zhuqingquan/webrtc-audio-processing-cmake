@@ -31,6 +31,8 @@ set(COMMON_AUDIO_SRC
         "fir_filter_c.h"
         "fir_filter_factory.cc"
         "fir_filter_factory.h"
+        "fir_filter_avx2.h"
+        "fir_filter_avx2.cc"
 
         "ring_buffer.c"
         "ring_buffer.h"
